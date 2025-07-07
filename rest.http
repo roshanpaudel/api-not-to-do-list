@@ -1,2 +1,14 @@
 #for checking the API functions
-@baseURL(http://localhost/8000)
+@baseUrl = http://localhost:8000
+
+###GET the task list
+GET {{baseUrl}}
+
+###POST the task list
+POST {{baseUrl}}
+
+###Update the task list
+PUT {{baseUrl}}
+
+###DELETE the task list
+DELETE  {{baseUrl}}
