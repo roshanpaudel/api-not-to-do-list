@@ -1,0 +1,2 @@
+#for checking the API functions
+@baseURL(http://localhost/8000)
