@@ -1,11 +1,12 @@
 import express from "express";
+import morgan from "morgan";
 const PORT = 8000;
 const app = express();
 
 import taskRouter from "./src/routers/taskRouter.js";
 
 app.use("/api/v1/tasks", taskRouter);
-
+app.use(morgan("combined"));
 // app.get("/", (req, res) => {
 //   console.log(res);
 // });
