@@ -9,8 +9,8 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-    "task":"coding",
-    "hr":40
+    "task":"caring",
+    "hr":10
 }
 
 ###Update the task list

@@ -13,7 +13,8 @@ router.all("/", (req, res, next) => {
 router.get("/", (req, res, next) => {
   res.json({
     status: "success",
-    message: "response from get",
+    message: "Here is the list of tasks",
+    task: fakeDB,
   });
 });
 
