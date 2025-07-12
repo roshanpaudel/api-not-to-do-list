@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ###DELETE the task list
-DELETE  {{baseUrl}}
+DELETE  {{baseUrl}}/2

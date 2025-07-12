@@ -63,10 +63,13 @@ router.patch("/", (req, res, next) => {
   });
 });
 
-router.delete("/", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
+  const { id } = req.params;
+  fakeDB = fakeDB.filter((item) => item.id !== +id);
   res.json({
     status: "success",
-    message: "response from delete",
+    message: "your task has been deleted",
+    task: fakeDB,
   });
 });
 
