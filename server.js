@@ -5,8 +5,10 @@ const app = express();
 
 import taskRouter from "./src/routers/taskRouter.js";
 
+app.use(express.json());
 app.use("/api/v1/tasks", taskRouter);
 app.use(morgan("combined"));
+
 // app.get("/", (req, res) => {
 //   console.log(res);
 // });

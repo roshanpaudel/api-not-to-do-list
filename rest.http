@@ -6,6 +6,12 @@ GET {{baseUrl}}
 
 ###POST the task list
 POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "task":"coding",
+    "hr":40
+}
 
 ###Update the task list
 PUT {{baseUrl}}

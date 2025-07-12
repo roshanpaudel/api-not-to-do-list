@@ -1,6 +1,7 @@
 import express from "express";
 
 const router = express.Router();
+let fakeDB = [];
 
 router.all("/", (req, res, next) => {
   //   res.json({
@@ -15,12 +16,16 @@ router.get("/", (req, res, next) => {
     message: "response from get",
   });
 });
+
 router.post("/", (req, res, next) => {
+  fakeDB.push(req.body);
+  console.log(fakeDB);
   res.json({
     status: "success",
-    message: "response from post",
+    message: "Message psuhed successfully",
   });
 });
+
 router.put("/", (req, res, next) => {
   res.json({
     status: "success",
