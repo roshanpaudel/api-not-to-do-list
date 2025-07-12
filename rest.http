@@ -9,12 +9,20 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
+    "id":1,
     "task":"caring",
-    "hr":10
+    "hr":10,
+    "type": "entry"
 }
 
 ###Update the task list
-PUT {{baseUrl}}
+PATCH {{baseUrl}}
+Content-Type: application/json
+
+{
+    "id":2,
+    "type": "bad"
+}
 
 ###DELETE the task list
 DELETE  {{baseUrl}}
