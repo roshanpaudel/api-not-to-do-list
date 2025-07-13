@@ -11,7 +11,7 @@ Content-Type: application/json
 {
     
     "task":"caring",
-    "hr":10,
+    "hr":110,
     "type": "entry"
 }
 

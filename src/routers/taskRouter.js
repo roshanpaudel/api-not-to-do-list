@@ -4,7 +4,19 @@ import mongoose from "mongoose";
 const router = express.Router();
 
 //databse table(collection) selecting
-const taskSchema = new mongoose.Schema({}, { strict: false });
+const taskSchema = new mongoose.Schema(
+  {
+    task: { type: String, required: true },
+    hr: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: [100, "Are you sure,its too high"],
+    },
+    type: { type: String, default: "entry", enum: ["entry", "bad"] },
+  },
+  { timestamps: true }
+);
 const TaskCollection = mongoose.model("Task", taskSchema);
 
 router.get("/", async (req, res, next) => {
@@ -17,15 +29,23 @@ router.get("/", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  console.log("--------");
-  //Insert query
-  const result = await TaskCollection(req.body).save();
-  console.log(result);
+  try {
+    console.log("--------");
+    //Insert query
+    const result = await TaskCollection(req.body).save();
+    console.log(result);
 
-  res.json({
-    status: "success",
-    message: "New task added successfully",
-  });
+    res.json({
+      status: "success",
+      message: "New task added successfully",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 router.patch("/", async (req, res, next) => {
