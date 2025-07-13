@@ -40,12 +40,14 @@ router.patch("/", async (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
-  const { id } = req.params;
+router.delete("/:_id", async (req, res, next) => {
+  const { _id } = req.params;
+  const deleted = await TaskCollection.findByIdAndDelete(_id);
+
   res.json({
     status: "success",
     message: "your task has been deleted",
-    task: [],
+    deleted,
   });
 });
 
