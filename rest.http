@@ -20,8 +20,9 @@ PATCH {{baseUrl}}
 Content-Type: application/json
 
 {
-    "id":2,
-    "type": "bad"
+    "_id":"687398572ff491827b8c65f8",
+    "type": "bad",
+    "hr": 25
 }
 
 ###DELETE the task list

@@ -7,18 +7,19 @@ const router = express.Router();
 const taskSchema = new mongoose.Schema({}, { strict: false });
 const TaskCollection = mongoose.model("Task", taskSchema);
 
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
+  const tasks = await TaskCollection.find();
   res.json({
     status: "success",
     message: "Here is the list of tasks",
-    task: "fakeDB",
+    task: tasks,
   });
 });
 
 router.post("/", async (req, res, next) => {
   console.log("--------");
   //Insert query
-  const result = await TaskCollection(req.body).save;
+  const result = await TaskCollection(req.body).save();
   console.log(result);
 
   res.json({
@@ -27,13 +28,15 @@ router.post("/", async (req, res, next) => {
   });
 });
 
-router.patch("/", (req, res, next) => {
-  const { id, type } = req.body;
-
+router.patch("/", async (req, res, next) => {
+  const { _id, ...rest } = req.body;
+  const updated = await TaskCollection.findByIdAndUpdate(_id, rest, {
+    new: true,
+  });
   res.json({
     status: "success",
     message: "response from put",
-    task: [],
+    updated,
   });
 });
 
