@@ -9,7 +9,7 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-    "id":1,
+    
     "task":"caring",
     "hr":10,
     "type": "entry"

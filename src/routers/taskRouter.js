@@ -1,14 +1,12 @@
 import express from "express";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
-router.all("/", (req, res, next) => {
-  //   res.json({
-  //     status: "success",
-  //     message: "response form all",
-  //   });
-  next();
-});
+//databse table(collection) selecting
+const taskSchema = new mongoose.Schema({}, { strict: false });
+const TaskCollection = mongoose.model("Task", taskSchema);
+
 router.get("/", (req, res, next) => {
   res.json({
     status: "success",
@@ -17,10 +15,15 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
+  console.log("--------");
+  //Insert query
+  const result = await TaskCollection(req.body).save;
+  console.log(result);
+
   res.json({
     status: "success",
-    message: "Message psuhed successfully",
+    message: "New task added successfully",
   });
 });
 
