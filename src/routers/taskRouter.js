@@ -1,26 +1,10 @@
 import express from "express";
-import mongoose from "mongoose";
+import { deleteTask, getTask, insertTask, updateTask } from "../models/taskModel/TaskSchema.js";
 
 const router = express.Router();
 
-//databse table(collection) selecting
-const taskSchema = new mongoose.Schema(
-  {
-    task: { type: String, required: true },
-    hr: {
-      type: Number,
-      required: true,
-      min: 1,
-      max: [100, "Are you sure,its too high"],
-    },
-    type: { type: String, default: "entry", enum: ["entry", "bad"] },
-  },
-  { timestamps: true }
-);
-const TaskCollection = mongoose.model("Task", taskSchema);
-
 router.get("/", async (req, res, next) => {
-  const tasks = await TaskCollection.find();
+  const tasks = await getTask();
   res.json({
     status: "success",
     message: "Here is the list of tasks",
@@ -32,7 +16,7 @@ router.post("/", async (req, res, next) => {
   try {
     console.log("--------");
     //Insert query
-    const result = await TaskCollection(req.body).save();
+    const result = await insertTask(req.body);
     console.log(result);
 
     res.json({
@@ -50,9 +34,7 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/", async (req, res, next) => {
   const { _id, ...rest } = req.body;
-  const updated = await TaskCollection.findByIdAndUpdate(_id, rest, {
-    new: true,
-  });
+  const updated = await updateTask(_id, rest);
   res.json({
     status: "success",
     message: "response from put",
@@ -62,7 +44,7 @@ router.patch("/", async (req, res, next) => {
 
 router.delete("/:_id", async (req, res, next) => {
   const { _id } = req.params;
-  const deleted = await TaskCollection.findByIdAndDelete(_id);
+  const deleted = await deleteTask(_id);
 
   res.json({
     status: "success",
