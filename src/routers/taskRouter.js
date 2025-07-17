@@ -42,11 +42,12 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/", async (req, res, next) => {
   try {
+    console.log("🔍 Received PATCH request with body:", req.body);
     const { _id, ...rest } = req.body;
     const updated = await updateTask(_id, rest);
     res.json({
       status: "success",
-      message: "response from put",
+      message: "Data update complete",
       updated,
     });
   } catch (error) {
