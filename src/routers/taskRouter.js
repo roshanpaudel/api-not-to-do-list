@@ -1,5 +1,10 @@
 import express from "express";
-import { deleteTask, getTask, insertTask, updateTask } from "../models/taskModel/TaskSchema.js";
+import {
+  deleteTask,
+  getTask,
+  insertTask,
+  updateTask,
+} from "../models/taskModel/TaskSchema.js";
 
 const router = express.Router();
 
@@ -17,12 +22,15 @@ router.post("/", async (req, res, next) => {
     console.log("--------");
     //Insert query
     const result = await insertTask(req.body);
-    console.log(result);
-
-    res.json({
-      status: "success",
-      message: "New task added successfully",
-    });
+    result._id
+      ? res.json({
+          status: "success",
+          message: "New task added successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "could't add data, retry later",
+        });
   } catch (error) {
     console.log(error.message);
     res.json({
@@ -33,13 +41,20 @@ router.post("/", async (req, res, next) => {
 });
 
 router.patch("/", async (req, res, next) => {
-  const { _id, ...rest } = req.body;
-  const updated = await updateTask(_id, rest);
-  res.json({
-    status: "success",
-    message: "response from put",
-    updated,
-  });
+  try {
+    const { _id, ...rest } = req.body;
+    const updated = await updateTask(_id, rest);
+    res.json({
+      status: "success",
+      message: "response from put",
+      updated,
+    });
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
 });
 
 router.delete("/:_id", async (req, res, next) => {

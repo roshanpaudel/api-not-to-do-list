@@ -3,14 +3,12 @@ import mongoose from "mongoose";
 //databse table(collection) selecting
 const taskSchema = new mongoose.Schema(
   {
-    task: { type: String, required: true },
-    hr: {
+    habitName: { type: String, required: true },
+    hours: {
       type: Number,
       required: true,
-      min: 1,
-      max: [100, "Are you sure,its too high"],
     },
-    type: { type: String, default: "entry", enum: ["entry", "bad"] },
+    isBadHabit: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
