@@ -71,7 +71,7 @@ router.patch("/", async (req, res, next) => {
 // });
 
 router.delete("/", async (req, res) => {
-  const { ids } = req.body;
+  const ids = req.body;
 
   if (!Array.isArray(ids) || ids.length === 0) {
     return res
