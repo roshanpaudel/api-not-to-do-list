@@ -28,3 +28,6 @@ export const updateTask = (_id, rest) => {
 export const deleteTask = (_id) => {
   return TaskCollection.findByIdAndDelete(_id);
 };
+export const deleteMultipleTasks = (ids) => {
+  return TaskCollection.deleteMany({ _id: { $in: ids } });
+};
