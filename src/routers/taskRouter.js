@@ -4,6 +4,7 @@ import {
   getTask,
   insertTask,
   updateTask,
+  deleteMultipleTasks,
 } from "../models/taskModel/TaskSchema.js";
 
 const router = express.Router();
@@ -58,15 +59,37 @@ router.patch("/", async (req, res, next) => {
   }
 });
 
-router.delete("/:_id", async (req, res, next) => {
-  const { _id } = req.params;
-  const deleted = await deleteTask(_id);
+// router.delete("/:_id", async (req, res, next) => {
+//   const { _id } = req.params;
+//   const deleted = await deleteTask(_id);
 
-  res.json({
-    status: "success",
-    message: "your task has been deleted",
-    deleted,
-  });
+//   res.json({
+//     status: "success",
+//     message: "your task has been deleted",
+//     deleted,
+//   });
+// });
+
+router.delete("/", async (req, res) => {
+  const { ids } = req.body;
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return res
+      .status(400)
+      .json({ status: "error", message: "No valid IDs provided." });
+  }
+
+  try {
+    const result = await deleteMultipleTasks(ids);
+
+    res.json({
+      status: "success",
+      message: `${result.deletedCount} task(s) deleted successfully.`,
+      result,
+    });
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
+  }
 });
 
 export default router;
