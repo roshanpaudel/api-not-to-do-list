@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
-const mongoURL = "mongodb://127.0.0.1:27017/online_ntdl";
+import dotenv from "dotenv";
+
+dotenv.config(); // Loads variables from .env into process.env
+const user = process.env.MONGO_USER;
+const pass = encodeURIComponent(process.env.MONGO_PASS);
+const mongoURL = `mongodb+srv://${user}:${pass}@online-class-db.ivt39qv.mongodb.net/online_ntdl?retryWrites=true&w=majority&appName=Online-class-db`;
 
 export const connectMongoDB = async () => {
   try {
